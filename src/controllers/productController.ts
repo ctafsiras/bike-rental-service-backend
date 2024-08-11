@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import Product from "../models/Product";
+import Product from "../models/Bike";
 import {
   productSchema,
   productSchemaForUpdate,
-} from "../schemas/productSchema";
+} from "../zodSchemas/bikeZodSchema";
 
 export const createProduct = async (req: Request, res: Response) => {
   try {

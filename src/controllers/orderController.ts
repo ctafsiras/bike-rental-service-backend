@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Order from "../models/User";
-import Product from "../models/Product";
-import { orderSchema } from "../schemas/userSchema";
+import Product from "../models/Bike";
+import { orderSchema } from "../zodSchemas/userZodSchema";
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
