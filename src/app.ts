@@ -1,15 +1,14 @@
 import express from "express";
-import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
-import productRoutes from "./routes/productRoutes";
-import orderRoutes from "./routes/orderRoutes";
+import authRoutes from "./routes/authRoutes";
+import userRoutes from "./routes/userRoutes";
 
 const app = express();
 
 app.use(bodyParser.json());
 
-app.use("/api/products", productRoutes);
-app.use("/api/orders", orderRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 
 export default app;

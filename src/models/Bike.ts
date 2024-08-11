@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { z } from "zod";
 import { bikeZodSchema } from "../zodSchemas/bikeZodSchema";
+
 export type BikeType = z.infer<typeof bikeZodSchema> & Document;
 
 const bikeSchema = new Schema<BikeType>({
@@ -14,4 +15,4 @@ const bikeSchema = new Schema<BikeType>({
   brand: { type: String, required: true },
 });
 
-export default mongoose.model<BikeType>("Bike", bikeSchema);
+export const Bike = mongoose.model<BikeType>("Bike", bikeSchema);

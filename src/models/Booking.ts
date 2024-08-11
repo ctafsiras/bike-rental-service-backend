@@ -13,4 +13,4 @@ const bookingSchema = new Schema<BookingType>({
   isReturned: { type: Boolean, default: false },
 });
 
-export default mongoose.model<BookingType>("Booking", bookingSchema);
+export const Booking = mongoose.model<BookingType>("Booking", bookingSchema);
