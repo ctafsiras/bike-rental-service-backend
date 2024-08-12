@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 import bikeRoutes from "./routes/bikeRoutes";
+import bookingRoutes from "./routes/bookingRoutes";
 
 const app = express();
 
@@ -12,5 +13,6 @@ app.use(bodyParser.json());
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/bikes", bikeRoutes);
+app.use("/api/rentals", bookingRoutes);
 
 export default app;
