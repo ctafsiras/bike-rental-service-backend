@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 import { z } from "zod";
 import { bikeZodSchema } from "../zodSchemas/bikeZodSchema";
 
-export type BikeType = z.infer<typeof bikeZodSchema> & { model: string };
+export type BikeType = z.infer<typeof bikeZodSchema>;
 
 const bikeSchema = new Schema<BikeType>({
   name: { type: String, required: true },
