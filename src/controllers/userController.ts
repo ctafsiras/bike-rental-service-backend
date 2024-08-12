@@ -6,7 +6,7 @@ import { z } from "zod";
 import { userZodSchema } from "../zodSchemas/userZodSchema";
 
 // JWT Secret Key
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key";
+const JWT_SECRET = process.env.JWT_SECRET!;
 
 // Sign Up Controller
 export const signUp = async (req: Request, res: Response) => {
