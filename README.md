@@ -1,4 +1,4 @@
-# E-commerce API
+# Bike Rental Backend
 
 This is a simple e-commerce API built with Express, TypeScript, MongoDB, Mongoose, and Zod.
 
