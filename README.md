@@ -12,8 +12,8 @@ This is a simple e-commerce API built with Express, TypeScript, MongoDB, Mongoos
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/ctafsiras/ecommerce-api.git
-    cd ecommerce-api
+    git clone https://github.com/ctafsiras/bike-rental-service-backend
+    cd bike-rental-service-backend
     ```
 
 2. Install dependencies:
@@ -27,6 +27,7 @@ This is a simple e-commerce API built with Express, TypeScript, MongoDB, Mongoos
     ```env
     MONGO_URI=your_mongodb_connection_string
     PORT=3000
+    JWT_SECRET=secret
     ```
 
 4. Start the server:
@@ -36,23 +37,6 @@ This is a simple e-commerce API built with Express, TypeScript, MongoDB, Mongoos
     ```
 
 The server will start on `http://localhost:3000`.
-
-## API Endpoints
-
-### Products
-
-- **Create Product**: `POST /api/products`
-- **Get All Products**: `GET /api/products`
-- **Get Product by ID**: `GET /api/products/:productId`
-- **Update Product**: `PUT /api/products/:productId`
-- **Delete Product**: `DELETE /api/products/:productId`
-- **Search Product**: `GET /api/products?searchTerm=term`
-
-### Orders
-
-- **Create Order**: `POST /api/orders`
-- **Get All Orders**: `GET /api/orders`
-- **Get Orders by Email**: `GET /api/orders?email=user@example.com`
 
 ## Validation
 
