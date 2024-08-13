@@ -1,6 +1,6 @@
 # Bike Rental Backend
 
-This is a simple e-commerce API built with Express, TypeScript, MongoDB, Mongoose, and Zod.
+This is a simple Rental Backend built with Express, TypeScript, MongoDB, Mongoose, and Zod.
 
 ## Prerequisites
 
