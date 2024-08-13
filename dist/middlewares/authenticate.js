@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authenticate = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || "dhoom ma chale";
 // Middleware to authenticate the user
 const authenticate = (req, res, next) => {
     const authHeader = req.headers.authorization;
@@ -13,7 +13,7 @@ const authenticate = (req, res, next) => {
         return res.status(401).json({
             success: false,
             statusCode: 401,
-            message: "Unauthorized",
+            message: "You have no access to this route",
         });
     }
     const token = authHeader.split(" ")[1];
@@ -26,7 +26,7 @@ const authenticate = (req, res, next) => {
         res.status(401).json({
             success: false,
             statusCode: 401,
-            message: "Unauthorized",
+            message: "You have no access to this route",
         });
     }
 };

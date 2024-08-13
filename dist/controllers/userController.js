@@ -19,7 +19,7 @@ const User_1 = require("../models/User");
 const zod_1 = require("zod");
 const userZodSchema_1 = require("../zodSchemas/userZodSchema");
 // JWT Secret Key
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || "dhoom ma chale";
 // Sign Up Controller
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -39,6 +39,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const newUser = new User_1.User(Object.assign(Object.assign({}, validatedData), { password: hashedPassword }));
         // Save the user
         yield newUser.save();
+        newUser.password = "";
         res.status(201).json({
             success: true,
             statusCode: 201,
@@ -80,7 +81,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         // Generate a JWT token
         const token = jsonwebtoken_1.default.sign({ userId: user._id }, JWT_SECRET, {
-            expiresIn: "1h",
+            expiresIn: "1d",
         });
         res.status(200).json({
             success: true,
@@ -119,6 +120,7 @@ const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 message: "User not found",
             });
         }
+        user.password = "";
         res.status(200).json({
             success: true,
             statusCode: 200,
@@ -151,6 +153,7 @@ const updateProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 message: "User not found",
             });
         }
+        updatedUser.password = "";
         res.status(200).json({
             success: true,
             statusCode: 200,

@@ -11,7 +11,7 @@ const router = express_1.default.Router();
 // Create rental
 router.post("/", authenticate_1.authenticate, bookingController_1.createRental);
 // Return bike (Admin only)
-router.put("//:id/return", authenticate_1.authenticate, (0, authorize_1.authorize)("admin"), bookingController_1.returnBike);
+router.put("/:id/return", authenticate_1.authenticate, (0, authorize_1.authorize)("admin"), bookingController_1.returnBike);
 // Get all rentals for user
 router.get("/", authenticate_1.authenticate, bookingController_1.getUserRentals);
 exports.default = router;

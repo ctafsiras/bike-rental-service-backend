@@ -16,5 +16,12 @@ app.use("/api/users", userRoutes_1.default);
 app.use("/api/auth", authRoutes_1.default);
 app.use("/api/bikes", bikeRoutes_1.default);
 app.use("/api/rentals", bookingRoutes_1.default);
+app.all("*", (req, res) => {
+    res.json({
+        success: false,
+        statusCode: 404,
+        message: "Not Found",
+    });
+});
 app.use(errorHandler_1.errorHandler);
 exports.default = app;

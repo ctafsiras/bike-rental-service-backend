@@ -12,12 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUserRentals = exports.returnBike = exports.createRental = void 0;
 const Bike_1 = require("../models/Bike");
 const zod_1 = require("zod");
-const bookingZodSchema_1 = require("../zodSchemas/bookingZodSchema");
 const Booking_1 = require("../models/Booking");
 // Create Rental
 const createRental = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { bikeId, startTime } = bookingZodSchema_1.bookingZodSchema.parse(req.body);
+        const { bikeId, startTime } = req.body;
         const userId = req.userId;
         // Check bike availability
         const bike = yield Bike_1.Bike.findById(bikeId);

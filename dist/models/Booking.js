@@ -29,8 +29,8 @@ const bookingSchema = new mongoose_1.Schema({
     userId: { type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true },
     bikeId: { type: mongoose_1.Schema.Types.ObjectId, ref: "Bike", required: true },
     startTime: { type: Date, required: true },
-    returnTime: { type: Date, required: true },
-    totalCost: { type: Number, required: true },
+    returnTime: { type: Date, default: null },
+    totalCost: { type: Number, default: 0 },
     isReturned: { type: Boolean, default: false },
 });
 exports.Booking = mongoose_1.default.model("Booking", bookingSchema);
