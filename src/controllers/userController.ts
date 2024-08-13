@@ -6,7 +6,7 @@ import { z } from "zod";
 import { userZodSchema } from "../zodSchemas/userZodSchema";
 
 // JWT Secret Key
-const JWT_SECRET = process.env.JWT_SECRET!;
+const JWT_SECRET = process.env.JWT_SECRET || "dhoom ma chale";
 
 // Sign Up Controller
 export const signUp = async (req: Request, res: Response) => {
@@ -30,6 +30,7 @@ export const signUp = async (req: Request, res: Response) => {
 
     // Save the user
     await newUser.save();
+    newUser.password = "";
 
     res.status(201).json({
       success: true,
@@ -71,10 +72,9 @@ export const login = async (req: Request, res: Response) => {
         message: "Invalid email or password",
       });
     }
-
     // Generate a JWT token
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "1d",
     });
 
     res.status(200).json({
@@ -104,7 +104,7 @@ export const login = async (req: Request, res: Response) => {
 // Get Profile Controller
 export const getProfile = async (req: Request, res: Response) => {
   try {
-    const userId = req.userId; // Assumes userId is added to request by authentication middleware
+    const userId = (req as any).userId;
 
     const user = await User.findById(userId);
     if (!user) {
@@ -114,7 +114,7 @@ export const getProfile = async (req: Request, res: Response) => {
         message: "User not found",
       });
     }
-
+    user.password = "";
     res.status(200).json({
       success: true,
       statusCode: 200,
@@ -134,7 +134,7 @@ export const getProfile = async (req: Request, res: Response) => {
 // Update Profile Controller
 export const updateProfile = async (req: Request, res: Response) => {
   try {
-    const userId = req.userId; // Assumes userId is added to request by authentication middleware
+    const userId = (req as any).userId; // Assumes userId is added to request by authentication middleware
 
     // Update the user's profile
     const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
@@ -148,7 +148,7 @@ export const updateProfile = async (req: Request, res: Response) => {
         message: "User not found",
       });
     }
-
+    updatedUser.password = "";
     res.status(200).json({
       success: true,
       statusCode: 200,

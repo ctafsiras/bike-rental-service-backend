@@ -1,14 +1,14 @@
-import { Request, Response } from 'express';
-import { Bike } from '../models/Bike';
-import { z } from 'zod';
-import {bookingZodSchema} from '../zodSchemas/bookingZodSchema';
-import {Booking} from '../models/Booking';
+import { Request, Response } from "express";
+import { Bike } from "../models/Bike";
+import { z } from "zod";
+import { bookingZodSchema } from "../zodSchemas/bookingZodSchema";
+import { Booking } from "../models/Booking";
 
 // Create Rental
 export const createRental = async (req: Request, res: Response) => {
   try {
-    const { bikeId, startTime } = bookingZodSchema.parse(req.body);
-    const userId = req.userId;
+    const { bikeId, startTime } = req.body;
+    const userId = (req as any).userId;
 
     // Check bike availability
     const bike = await Bike.findById(bikeId);
@@ -16,7 +16,7 @@ export const createRental = async (req: Request, res: Response) => {
       return res.status(400).json({
         success: false,
         statusCode: 400,
-        message: 'Bike is not available',
+        message: "Bike is not available",
       });
     }
 
@@ -35,14 +35,14 @@ export const createRental = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       statusCode: 200,
-      message: 'Rental created successfully',
+      message: "Rental created successfully",
       data: rental,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       statusCode: 500,
-      message: 'Internal server error',
+      message: "Internal server error",
       error: error instanceof z.ZodError ? error.errors : error,
     });
   }
@@ -52,13 +52,13 @@ export const createRental = async (req: Request, res: Response) => {
 export const returnBike = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const rental = await Booking.findById(id).populate('bikeId');
+    const rental = await Booking.findById(id).populate("bikeId");
 
     if (!rental || rental.isReturned) {
       return res.status(404).json({
         success: false,
         statusCode: 404,
-        message: 'Rental not found or already returned',
+        message: "Rental not found or already returned",
       });
     }
 
@@ -73,7 +73,7 @@ export const returnBike = async (req: Request, res: Response) => {
       return res.status(404).json({
         success: false,
         statusCode: 404,
-        message: 'Bike not found',
+        message: "Bike not found",
       });
     }
 
@@ -89,14 +89,14 @@ export const returnBike = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       statusCode: 200,
-      message: 'Bike returned successfully',
+      message: "Bike returned successfully",
       data: rental,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       statusCode: 500,
-      message: 'Internal server error',
+      message: "Internal server error",
       error,
     });
   }
@@ -105,20 +105,20 @@ export const returnBike = async (req: Request, res: Response) => {
 // Get All Rentals for User
 export const getUserRentals = async (req: Request, res: Response) => {
   try {
-    const userId = req.userId;
+    const userId = (req as any).userId;
     const rentals = await Booking.find({ userId });
 
     res.status(200).json({
       success: true,
       statusCode: 200,
-      message: 'Rentals retrieved successfully',
+      message: "Rentals retrieved successfully",
       data: rentals,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       statusCode: 500,
-      message: 'Internal server error',
+      message: "Internal server error",
       error,
     });
   }

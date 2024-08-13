@@ -4,7 +4,7 @@ import { User } from "../models/User";
 // Middleware to authorize based on role
 export const authorize = (role: string) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const userId = req.userId;
+    const userId = (req as any).userId;
 
     // Find the user by ID
     const user = await User.findById(userId);

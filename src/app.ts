@@ -16,6 +16,14 @@ app.use("/api/auth", authRoutes);
 app.use("/api/bikes", bikeRoutes);
 app.use("/api/rentals", bookingRoutes);
 
+app.get("*", (req, res) => {
+  res.json({
+    success: false,
+    statusCode: 404,
+    message: "Not Found",
+  });
+});
+
 app.use(errorHandler);
 
 export default app;

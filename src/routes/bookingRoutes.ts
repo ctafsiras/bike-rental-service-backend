@@ -13,7 +13,7 @@ const router = express.Router();
 router.post("/", authenticate, createRental);
 
 // Return bike (Admin only)
-router.put("//:id/return", authenticate, authorize("admin"), returnBike);
+router.put("/:id/return", authenticate, authorize("admin"), returnBike);
 
 // Get all rentals for user
 router.get("/", authenticate, getUserRentals);
