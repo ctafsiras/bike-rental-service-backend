@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteBike = exports.updateBike = exports.getAllBikes = exports.createBike = void 0;
+exports.deleteBike = exports.updateBike = exports.getSingleBike = exports.getAllBikes = exports.createBike = void 0;
 const zod_1 = require("zod");
 const Bike_1 = require("../models/Bike");
 const bikeZodSchema_1 = require("../zodSchemas/bikeZodSchema");
@@ -24,7 +24,7 @@ const createBike = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(201).json({
             success: true,
             statusCode: 201,
-            message: 'Bike added successfully',
+            message: "Bike added successfully",
             data: newBike,
         });
     }
@@ -32,7 +32,7 @@ const createBike = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json({
             success: false,
             statusCode: 500,
-            message: 'Internal server error',
+            message: "Internal server error",
             error: error instanceof zod_1.z.ZodError ? error.errors : error,
         });
     }
@@ -45,7 +45,7 @@ const getAllBikes = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(200).json({
             success: true,
             statusCode: 200,
-            message: 'Bikes retrieved successfully',
+            message: "Bikes retrieved successfully",
             data: bikes,
         });
     }
@@ -53,12 +53,34 @@ const getAllBikes = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(500).json({
             success: false,
             statusCode: 500,
-            message: 'Internal server error',
+            message: "Internal server error",
             error,
         });
     }
 });
 exports.getAllBikes = getAllBikes;
+// Get All Bikes
+const getSingleBike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const bike = yield Bike_1.Bike.findById(id);
+        res.status(200).json({
+            success: true,
+            statusCode: 200,
+            message: "Bike retrieved successfully",
+            data: bike,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            statusCode: 500,
+            message: "Internal server error",
+            error,
+        });
+    }
+});
+exports.getSingleBike = getSingleBike;
 // Update Bike
 const updateBike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -71,13 +93,13 @@ const updateBike = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             return res.status(404).json({
                 success: false,
                 statusCode: 404,
-                message: 'Bike not found',
+                message: "Bike not found",
             });
         }
         res.status(200).json({
             success: true,
             statusCode: 200,
-            message: 'Bike updated successfully',
+            message: "Bike updated successfully",
             data: updatedBike,
         });
     }
@@ -85,7 +107,7 @@ const updateBike = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json({
             success: false,
             statusCode: 500,
-            message: 'Internal server error',
+            message: "Internal server error",
             error,
         });
     }
@@ -101,13 +123,13 @@ const deleteBike = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             return res.status(404).json({
                 success: false,
                 statusCode: 404,
-                message: 'Bike not found',
+                message: "Bike not found",
             });
         }
         res.status(200).json({
             success: true,
             statusCode: 200,
-            message: 'Bike deleted successfully',
+            message: "Bike deleted successfully",
             data: deletedBike,
         });
     }
@@ -115,7 +137,7 @@ const deleteBike = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json({
             success: false,
             statusCode: 500,
-            message: 'Internal server error',
+            message: "Internal server error",
             error,
         });
     }

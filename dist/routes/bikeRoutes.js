@@ -12,6 +12,7 @@ const router = express_1.default.Router();
 router.post("/", authenticate_1.authenticate, (0, authorize_1.authorize)("admin"), bikeController_1.createBike);
 // Get all bikes
 router.get("/", bikeController_1.getAllBikes);
+router.get("/:id", bikeController_1.getSingleBike);
 // Update bike (Admin only)
 router.put("/:id", authenticate_1.authenticate, (0, authorize_1.authorize)("admin"), bikeController_1.updateBike);
 // Delete bike (Admin only)
