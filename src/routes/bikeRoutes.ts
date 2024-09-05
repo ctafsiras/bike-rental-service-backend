@@ -4,6 +4,7 @@ import {
   getAllBikes,
   updateBike,
   deleteBike,
+  getSingleBike,
 } from "../controllers/bikeController";
 import { authenticate } from "../middlewares/authenticate";
 import { authorize } from "../middlewares/authorize";
@@ -15,6 +16,8 @@ router.post("/", authenticate, authorize("admin"), createBike);
 
 // Get all bikes
 router.get("/", getAllBikes);
+
+router.get("/:id", getSingleBike);
 
 // Update bike (Admin only)
 router.put("/:id", authenticate, authorize("admin"), updateBike);
