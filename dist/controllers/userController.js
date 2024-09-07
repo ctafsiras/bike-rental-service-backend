@@ -204,7 +204,7 @@ const updateProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.updateProfile = updateProfile;
 const deleteProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userId = req.userId; // Assumes userId is added to request by authentication middleware
+        const { userId } = req.body; // Assumes userId is added to request by authentication middleware
         // Update the user's profile
         const deletedUser = yield User_1.User.findByIdAndDelete(userId);
         if (!deletedUser) {

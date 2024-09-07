@@ -197,7 +197,7 @@ export const updateProfile = async (req: Request, res: Response) => {
 
 export const deleteProfile = async (req: Request, res: Response) => {
   try {
-    const userId = (req as any).userId; // Assumes userId is added to request by authentication middleware
+    const { userId } = req.body; // Assumes userId is added to request by authentication middleware
 
     // Update the user's profile
     const deletedUser = await User.findByIdAndDelete(userId);
