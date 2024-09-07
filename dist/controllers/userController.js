@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateProfile = exports.getProfile = exports.login = exports.signUp = void 0;
+exports.updateProfile = exports.getAllUser = exports.getProfile = exports.login = exports.signUp = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = require("../models/User");
@@ -138,6 +138,37 @@ const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.getProfile = getProfile;
+const getAllUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const users = yield User_1.User.find();
+        if (!users) {
+            return res.status(404).json({
+                success: false,
+                statusCode: 404,
+                message: "Users not found",
+            });
+        }
+        const allUsers = users.map(user => {
+            user.password = "";
+            return user;
+        });
+        res.status(200).json({
+            success: true,
+            statusCode: 200,
+            message: "Users profile retrieved successfully",
+            data: allUsers,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            statusCode: 500,
+            message: "Internal server error",
+            error,
+        });
+    }
+});
+exports.getAllUser = getAllUser;
 // Update Profile Controller
 const updateProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

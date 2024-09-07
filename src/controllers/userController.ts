@@ -131,6 +131,36 @@ export const getProfile = async (req: Request, res: Response) => {
   }
 };
 
+export const getAllUser = async (req: Request, res: Response) => {
+  try {
+    const users = await User.find();
+    if (!users) {
+      return res.status(404).json({
+        success: false,
+        statusCode: 404,
+        message: "Users not found",
+      });
+    }
+    const allUsers=users.map(user=>{
+      user.password = "";
+      return user
+    })
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "Users profile retrieved successfully",
+      data: allUsers,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: "Internal server error",
+      error,
+    });
+  }
+};
+
 // Update Profile Controller
 export const updateProfile = async (req: Request, res: Response) => {
   try {
