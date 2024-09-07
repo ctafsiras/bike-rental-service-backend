@@ -224,3 +224,33 @@ export const deleteProfile = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const makeAdmin = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.body; // Assumes userId is added to request by authentication middleware
+
+    // Update the user's profile
+    const user = await User.findByIdAndUpdate(userId, { role: "admin" });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        statusCode: 404,
+        message: "User not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "Profile updated successfully",
+      data: user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: "Internal server error",
+      error,
+    });
+  }
+};

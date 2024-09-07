@@ -14,4 +14,5 @@ router.delete("/", authenticate_1.authenticate, (0, authorize_1.authorize)("admi
 router.get("/me", authenticate_1.authenticate, userController_1.getProfile);
 // Update user profile
 router.put("/me", authenticate_1.authenticate, userController_1.updateProfile);
+router.put("/make-admin", authenticate_1.authenticate, (0, authorize_1.authorize)("admin"), userController_1.makeAdmin);
 exports.default = router;

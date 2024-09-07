@@ -3,6 +3,7 @@ import {
   deleteProfile,
   getAllUser,
   getProfile,
+  makeAdmin,
   updateProfile,
 } from "../controllers/userController";
 import { authenticate } from "../middlewares/authenticate";
@@ -18,5 +19,7 @@ router.get("/me", authenticate, getProfile);
 
 // Update user profile
 router.put("/me", authenticate, updateProfile);
+
+router.put("/make-admin", authenticate, authorize("admin"), makeAdmin);
 
 export default router;

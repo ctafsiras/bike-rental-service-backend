@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProfile = exports.updateProfile = exports.getAllUser = exports.getProfile = exports.login = exports.signUp = void 0;
+exports.makeAdmin = exports.deleteProfile = exports.updateProfile = exports.getAllUser = exports.getProfile = exports.login = exports.signUp = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = require("../models/User");
@@ -231,3 +231,32 @@ const deleteProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deleteProfile = deleteProfile;
+const makeAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { userId } = req.body; // Assumes userId is added to request by authentication middleware
+        // Update the user's profile
+        const user = yield User_1.User.findByIdAndUpdate(userId, { role: "admin" });
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                statusCode: 404,
+                message: "User not found",
+            });
+        }
+        res.status(200).json({
+            success: true,
+            statusCode: 200,
+            message: "Profile updated successfully",
+            data: user,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            statusCode: 500,
+            message: "Internal server error",
+            error,
+        });
+    }
+});
+exports.makeAdmin = makeAdmin;
