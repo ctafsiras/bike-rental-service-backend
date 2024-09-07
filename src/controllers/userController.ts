@@ -141,10 +141,10 @@ export const getAllUser = async (req: Request, res: Response) => {
         message: "Users not found",
       });
     }
-    const allUsers=users.map(user=>{
+    const allUsers = users.map((user) => {
       user.password = "";
-      return user
-    })
+      return user;
+    });
     res.status(200).json({
       success: true,
       statusCode: 200,
@@ -184,6 +184,36 @@ export const updateProfile = async (req: Request, res: Response) => {
       statusCode: 200,
       message: "Profile updated successfully",
       data: updatedUser,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: "Internal server error",
+      error,
+    });
+  }
+};
+
+export const deleteProfile = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).userId; // Assumes userId is added to request by authentication middleware
+
+    // Update the user's profile
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({
+        success: false,
+        statusCode: 404,
+        message: "User not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "Profile deleted successfully",
+      data: deletedUser,
     });
   } catch (error) {
     res.status(500).json({

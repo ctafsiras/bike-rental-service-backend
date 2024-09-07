@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateProfile = exports.getAllUser = exports.getProfile = exports.login = exports.signUp = void 0;
+exports.deleteProfile = exports.updateProfile = exports.getAllUser = exports.getProfile = exports.login = exports.signUp = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = require("../models/User");
@@ -148,7 +148,7 @@ const getAllUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 message: "Users not found",
             });
         }
-        const allUsers = users.map(user => {
+        const allUsers = users.map((user) => {
             user.password = "";
             return user;
         });
@@ -202,3 +202,32 @@ const updateProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.updateProfile = updateProfile;
+const deleteProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.userId; // Assumes userId is added to request by authentication middleware
+        // Update the user's profile
+        const deletedUser = yield User_1.User.findByIdAndDelete(userId);
+        if (!deletedUser) {
+            return res.status(404).json({
+                success: false,
+                statusCode: 404,
+                message: "User not found",
+            });
+        }
+        res.status(200).json({
+            success: true,
+            statusCode: 200,
+            message: "Profile deleted successfully",
+            data: deletedUser,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            statusCode: 500,
+            message: "Internal server error",
+            error,
+        });
+    }
+});
+exports.deleteProfile = deleteProfile;
