@@ -105,7 +105,7 @@ exports.returnBike = returnBike;
 const getUserRentals = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.userId;
-        const rentals = yield Booking_1.Booking.find({ userId });
+        const rentals = yield Booking_1.Booking.find({ userId }).populate("userId", "name");
         res.status(200).json({
             success: true,
             statusCode: 200,
@@ -126,7 +126,7 @@ exports.getUserRentals = getUserRentals;
 // Get All Rentals for Admin
 const getAllUserRentals = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const rentals = yield Booking_1.Booking.find();
+        const rentals = yield Booking_1.Booking.find().populate("userId", "name");
         res.status(200).json({
             success: true,
             statusCode: 200,
