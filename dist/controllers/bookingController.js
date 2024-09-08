@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserRentals = exports.returnBike = exports.createRental = void 0;
+exports.getAllUserRentals = exports.getUserRentals = exports.returnBike = exports.createRental = void 0;
 const Bike_1 = require("../models/Bike");
 const zod_1 = require("zod");
 const Booking_1 = require("../models/Booking");
@@ -123,3 +123,24 @@ const getUserRentals = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.getUserRentals = getUserRentals;
+// Get All Rentals for Admin
+const getAllUserRentals = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const rentals = yield Booking_1.Booking.find();
+        res.status(200).json({
+            success: true,
+            statusCode: 200,
+            message: "Rentals retrieved successfully",
+            data: rentals,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            statusCode: 500,
+            message: "Internal server error",
+            error,
+        });
+    }
+});
+exports.getAllUserRentals = getAllUserRentals;

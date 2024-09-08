@@ -14,4 +14,5 @@ router.post("/", authenticate_1.authenticate, bookingController_1.createRental);
 router.put("/:id/return", authenticate_1.authenticate, (0, authorize_1.authorize)("admin"), bookingController_1.returnBike);
 // Get all rentals for user
 router.get("/", authenticate_1.authenticate, bookingController_1.getUserRentals);
+router.get("/all", authenticate_1.authenticate, (0, authorize_1.authorize)("admin"), bookingController_1.getAllUserRentals);
 exports.default = router;

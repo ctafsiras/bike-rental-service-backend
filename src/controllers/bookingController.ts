@@ -123,3 +123,23 @@ export const getUserRentals = async (req: Request, res: Response) => {
     });
   }
 };
+// Get All Rentals for Admin
+export const getAllUserRentals = async (req: Request, res: Response) => {
+  try {
+    const rentals = await Booking.find();
+
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "Rentals retrieved successfully",
+      data: rentals,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: "Internal server error",
+      error,
+    });
+  }
+};
