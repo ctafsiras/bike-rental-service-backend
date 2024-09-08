@@ -106,7 +106,9 @@ export const returnBike = async (req: Request, res: Response) => {
 export const getUserRentals = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).userId;
-    const rentals = await Booking.find({ userId }).populate("userId", "name");
+    const rentals = await Booking.find({ userId })
+      .populate("userId", "name")
+      .populate("bikeId", "name");
 
     res.status(200).json({
       success: true,
@@ -126,7 +128,9 @@ export const getUserRentals = async (req: Request, res: Response) => {
 // Get All Rentals for Admin
 export const getAllUserRentals = async (req: Request, res: Response) => {
   try {
-    const rentals = await Booking.find().populate("userId", "name");
+    const rentals = await Booking.find()
+      .populate("userId", "name")
+      .populate("bikeId", "name");
 
     res.status(200).json({
       success: true,
